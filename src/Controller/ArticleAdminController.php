@@ -1,7 +1,7 @@
 <?php 
  namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,17 +11,19 @@ use App\Entity\Article;
 class ArticleAdminController extends AbstractController{
 
     /**
-     * @Route("/admin/article/new")
+     * @Route("/admin/article/new", name="admin_article_new")
+     * @IsGranted("ROLE_ADMIN_ARTICLE")
      */
     public function new(EntityManagerInterface $em){
 
-        $article = new Article();
+        
+        /*$article = new Article();
         $article->setTitle('Why Do Asteroids Taste Like Bacon '. rand(1,100));
 
         //newly added fields
         $article->setAuthor('Ferengi '. rand(1,10));
         $article->setHeartCount(rand(1,100));
-        $article->setIamgeFilename('asteroid.jpeg');
+        $article->setImageFilename('asteroid.jpeg');
 
         $article->setSlug('why-do-asteroids-taste-like-bacon-'. rand(1,100));
         $article->setContent('
@@ -64,7 +66,20 @@ class ArticleAdminController extends AbstractController{
         return new Response(sprintf(
             'New Article added with ID %d',
             $article->getId()
-        ));
+        ));*/
+    }
+
+    /**
+     * @Route("admin/article/{id}/edit")
+     * @param Article $article
+     */
+    public function edit(Article $article){
+
+        if(!$this->isGranted('MANAGE', $article)){
+            throw $this->createAccessDeniedException('No Access!');
+        }
+        
+        dd($article);
     }
     
  }
