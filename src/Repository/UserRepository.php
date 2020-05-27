@@ -26,6 +26,22 @@ class UserRepository extends ServiceEntityRepository
                     ->execute();
     }
 
+    /**
+     * Find all matching users
+     *
+     * @param String $query
+     * @param Integer $limit
+     * @return User[]
+     */
+    public function findAllMatching(String $query, int $limit = 5){
+        return $this->createQueryBuilder('u')
+                    ->andWhere('u.email LIKE :query')
+                    ->setParameter('query', '%'. $query . '%')
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->execute();
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

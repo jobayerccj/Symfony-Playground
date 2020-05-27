@@ -12,6 +12,7 @@
                 <th>Title</th>
                 <th>Author</th>
                 <th>Published?</th>
+                <th>&nbsp;</th>
             </tr>
         </thead>
 
@@ -21,7 +22,8 @@
             <tr>
                 <td>{{ article.title }}</td>
                 <td>{{ article.author.email }}</td>
-                <td><span class="fa fa-{{ article.isPublished ? 'check': 'times' }}"></td>
+                <td><span class="fa fa-{{ article.isPublished ? 'check': 'times' }}"></span></td>
+                <td><a href="{{ path('admin_article_edit', { 'id': article.id } ) }}"><span class="fa fa-pencil"></span></a></td>
             </tr>
             {% endfor %}
         </tbody>

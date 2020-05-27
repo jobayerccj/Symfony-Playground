@@ -30,7 +30,8 @@ class ArticleFormType extends AbstractType{
             ->add('publishedAt', null, [
                 'widget' => 'single_text'
             ])
-            ->add('author', EntityType::class, [
+            ->add('author', UserSelectTextType::class);
+            /*->add('author', EntityType::class, [
                 'class' => User::class,
                 'placeholder' => "Select an Author",
                 'choice_label' => function(User $user){
@@ -38,7 +39,7 @@ class ArticleFormType extends AbstractType{
                 },
                 'choices' => $this->userRepository -> findAllEmailAlphabetical(),
                 'invalid_message' => "Don't try it, it will not work"
-            ]);
+            ]);*/
     }
 
 
